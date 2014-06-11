@@ -43,7 +43,7 @@ $id  = isset( $variables['id'] ) ?  $variables['id'] : rand(0, 999999);
       aria-selected="false"
       aria-controls="#fullBody<?php print $id; ?>">
       <span class="fa fa-plus-circle" aria-hidden="true"></span>
-      Full Body
+      Full
     </a>
   </li>
 </ul><!--/.nav.nav-<?php print $nav_style;?>s-->
