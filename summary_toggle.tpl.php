@@ -5,9 +5,10 @@
 
 $id  = isset( $variables['id'] ) ?  $variables['id'] : rand(0, 999999);
 ?>
+<div class="<?php print $classes;?>">
 <?php if(strlen($full_body) > strlen($summary_or_trimmed)): ?>
 <?php if($nav_style === 'pill'){ ?>
-  <div class="tab-content <?php print $classes;?>">
+  <div class="tab-content">
     <div class="tab-pane active " id="summaryBody<?php print $id; ?>"
       role="tabpanel" aria-hidden="fasle"
       aria-labeledby="#summaryBody<?php print $id; ?>tab"
@@ -71,3 +72,4 @@ $id  = isset( $variables['id'] ) ?  $variables['id'] : rand(0, 999999);
     print $full_body;
   endif;
 ?>
+</div>
