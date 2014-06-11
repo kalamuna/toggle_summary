@@ -92,10 +92,7 @@ function toggle_summary_field_formatter_view($entity_type, $entity, $field, $ins
         '#summary_or_trimmed' => $summary_or_trimmed,
         '#full_body' => $full_body,
         '#nav_style' => $settings['nav_style'],
-        '#theme_hook_suggestions' => array(
-          'summary_toggle__' . $entity_type,
-          'summary_toggle__' . $entity_type . '__'.$instance['field_name'],
-          )
+        '#field' => $instance
       );
 
     }
@@ -113,8 +110,16 @@ function toggle_summary_theme($existing, $type, $theme, $path){
       'variables' => array(
         'summary_or_trimmed' => '',
         'full_body' => '',
-        'nav_style' => 'tab'
+        'nav_style' => 'tab',
+        'field' => array()
       )
     )
   );
+}
+
+
+function template_preprocess_summary_toggle(&$vars) {
+  $hooks = array( 'summary_toggle__'.$vars['field']['entity_type']);
+  $hooks[] = $hooks[0] . '__' . $vars['field']['field_name'];
+  $vars['theme_hook_suggestions'] = $hooks;
 }
