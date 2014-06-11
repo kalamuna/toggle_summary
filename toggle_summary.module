@@ -64,17 +64,36 @@ function toggle_summary_field_formatter_view($entity_type, $entity, $field, $ins
 
   if($display['type'] == 'toggle_summary') {
     foreach ($items as $delta => $item) {
-      $full = _text_sanitize($instance, $langcode, $item, 'value');
+      $full_body = _text_sanitize($instance, $langcode, $item, 'value');
       if (!empty($item['summary'])) {
-        $summary = _text_sanitize($instance, $langcode, $item, 'summary');
+        $summary_or_trimmed = _text_sanitize($instance, $langcode, $item, 'summary');
       }
       else {
-        $summary = $full;
-        $summary = text_summary($output, $instance['settings']['text_processing'] ? $item['format'] : NULL, $display['settings']['trim_length']);
+        $summary_or_trimmed = $full_body;
+        $summary_or_trimmed = text_summary($summary_or_trimmed, $instance['settings']['text_processing'] ? $item['format'] : NULL, $display['settings']['trim_length']);
       }
-      $summary .= 'Working!';
-      $element[$delta] = array('#markup' => $summary);
+
+      $element[$delta] = array(
+        '#theme' => 'summary_toggle',
+        '#summary_or_trimmed' => $summary_or_trimmed,
+        '#full_body' => $full_body
+      );
+
     }
   }
   return $element;
+}
+/**
+ * Implements hook_theme()
+ */
+function toggle_summary_theme($existing, $type, $theme, $path){
+  return array(
+    'summary_toggle' => array(
+      'template' => 'summary_toggle',
+      'variables' => array(
+        'summary_or_trimmed' => '',
+        'full_body' => ''
+      )
+    )
+  );
 }
