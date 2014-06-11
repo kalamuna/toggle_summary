@@ -6,6 +6,24 @@
 $id  = isset( $variables['id'] ) ?  $variables['id'] : rand(0, 999999);
 ?>
 <?php if(strlen($full_body) > strlen($summary_or_trimmed)): ?>
+<?php if($nav_style === 'pill'){ ?>
+  <div class="tab-content <?php print $classes;?>">
+    <div class="tab-pane active " id="summaryBody<?php print $id; ?>"
+      role="tabpanel" aria-hidden="fasle"
+      aria-labeledby="#summaryBody<?php print $id; ?>tab"
+      tabIndex="0">
+
+      <?php print $summary_or_trimmed; ?>
+    </div>
+    <div class="tab-pane" id="fullBody<?php print $id; ?>"
+      role="tabpanel" aria-hidden="true"
+      aria-labeledby="#fullBody<?php print $id; ?>tab"
+      tabIndex="-1">
+      <?php print $full_body; ?>
+    </div>
+  </div><!--/.tab-content-->
+
+<?php } ?>
 <ul class="nav nav-<?php print $nav_style;?>s" role="tablist">
   <li class="active" role="presenation">
     <a href="#summaryBody<?php print $id; ?>"
@@ -29,21 +47,25 @@ $id  = isset( $variables['id'] ) ?  $variables['id'] : rand(0, 999999);
     </a>
   </li>
 </ul><!--/.nav.nav-<?php print $nav_style;?>s-->
-<div class="tab-content <?php print $classes;?>">
-  <div class="tab-pane active " id="summaryBody<?php print $id; ?>"
-    role="tabpanel" aria-hidden="fasle"
-    aria-labeledby="#summaryBody<?php print $id; ?>tab"
-    tabIndex="0">
+<?php if($nav_style === 'tab'){ ?>
+  <div class="tab-content <?php print $classes;?>">
+    <div class="tab-pane active " id="summaryBody<?php print $id; ?>"
+      role="tabpanel" aria-hidden="fasle"
+      aria-labeledby="#summaryBody<?php print $id; ?>tab"
+      tabIndex="0">
 
-    <?php print $summary_or_trimmed; ?>
-  </div>
-  <div class="tab-pane" id="fullBody<?php print $id; ?>"
-    role="tabpanel" aria-hidden="true"
-    aria-labeledby="#fullBody<?php print $id; ?>tab"
-    tabIndex="-1">
-    <?php print $full_body; ?>
-  </div>
-</div><!--/.tab-content-->
+      <?php print $summary_or_trimmed; ?>
+    </div>
+    <div class="tab-pane" id="fullBody<?php print $id; ?>"
+      role="tabpanel" aria-hidden="true"
+      aria-labeledby="#fullBody<?php print $id; ?>tab"
+      tabIndex="-1">
+      <?php print $full_body; ?>
+    </div>
+  </div><!--/.tab-content-->
+
+<?php } ?>
+
 <?php
   else:
     print $full_body;

@@ -58,11 +58,11 @@ function toggle_summary_field_formatter_settings_summary($field, $instance, $vie
   $display = $instance['display'][$view_mode];
   $settings = $display['settings'];
 
-  $summary = '';
+  $summary = array();
 
   if($display['type'] == 'toggle_summary') {
-    $summary = t('Trim length') . ': ' . $settings['trim_length'];
-    $summary = t('Nav Style')  . ': ' . $settings['nav_style'];
+    $summary[] = t('Trim length') . ': ' . $settings['trim_length'];
+    $summary[] = t('Nav Style')  . ': ' . $settings['nav_style'];
   }
 
   return $summary;
