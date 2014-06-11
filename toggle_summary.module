@@ -9,7 +9,10 @@ function toggle_summary_field_formatter_info(){
     'toggle_summary' => array(
       'label' => t('Summary/Trimmed Toggle'),
       'field types' => array('text_with_summary'),
-      'settings' => array('trim_length' => 600),
+      'settings' => array(
+        'trim_length' => 600,
+        'nav_style' => 'tab'
+      ),
     )
   );
 }
@@ -32,6 +35,16 @@ function toggle_summary_field_formatter_settings_form($field, $instance, $view_m
       '#element_validate' => array('element_validate_integer_positive'),
       '#required' => TRUE,
     );
+    $element['nav_style'] = array(
+      '#title' => t('Bootstrap Nav Style'),
+      '#type' => 'select',
+      '#options' => array(
+        'tab' => t('Tabs'),
+        'pill' => t('Pills')
+      ),
+      '#default_value' => $settings['nav_style'],
+      '#required' => TRUE,
+    );
   }
 
   return $element;
@@ -49,6 +62,7 @@ function toggle_summary_field_formatter_settings_summary($field, $instance, $vie
 
   if($display['type'] == 'toggle_summary') {
     $summary = t('Trim length') . ': ' . $settings['trim_length'];
+    $summary = t('Nav Style')  . ': ' . $settings['nav_style'];
   }
 
   return $summary;
@@ -76,11 +90,17 @@ function toggle_summary_field_formatter_view($entity_type, $entity, $field, $ins
       $element[$delta] = array(
         '#theme' => 'summary_toggle',
         '#summary_or_trimmed' => $summary_or_trimmed,
-        '#full_body' => $full_body
+        '#full_body' => $full_body,
+        '#nav_style' => $settings['nav_style'],
+        '#theme_hook_suggestions' => array(
+          'summary_toggle__' . $entity_type,
+          'summary_toggle__' . $entity_type . '__'.$instance['field_name'],
+          )
       );
 
     }
   }
+
   return $element;
 }
 /**
@@ -92,7 +112,8 @@ function toggle_summary_theme($existing, $type, $theme, $path){
       'template' => 'summary_toggle',
       'variables' => array(
         'summary_or_trimmed' => '',
-        'full_body' => ''
+        'full_body' => '',
+        'nav_style' => 'tab'
       )
     )
   );

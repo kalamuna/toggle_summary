@@ -6,11 +6,11 @@
 $id  = isset( $variables['id'] ) ?  $variables['id'] : rand(0, 999999);
 ?>
 <?php if(strlen($full_body) > strlen($summary_or_trimmed)): ?>
-<ul class="nav nav-tabs" role="tablist">
+<ul class="nav nav-<?php print $nav_style;?>s" role="tablist">
   <li class="active" role="presenation">
     <a href="#summaryBody<?php print $id; ?>"
       id="#summaryBody<?php print $id; ?>tab"
-      data-toggle="tab" role="tab" tabIndex="0"
+      data-toggle="<?php print $nav_style;?>" role="tab" tabIndex="0"
       aria-selected="true"
       aria-controls="#summaryBody<?php print $id; ?>">
 
@@ -21,14 +21,14 @@ $id  = isset( $variables['id'] ) ?  $variables['id'] : rand(0, 999999);
   <li role="presentation">
     <a href="#fullBody<?php print $id; ?>"
       id="#fullBody<?php print $id; ?>tab"
-      data-toggle="tab" role="tab" tabIndex="-1"
+      data-toggle="<?php print $nav_style;?>" role="tab" tabIndex="-1"
       aria-selected="false"
       aria-controls="#fullBody<?php print $id; ?>">
       <span class="fa fa-plus-circle" aria-hidden="true"></span>
       Full Body
     </a>
   </li>
-</ul><!--/.nav.nav-tabs-->
+</ul><!--/.nav.nav-<?php print $nav_style;?>s-->
 <div class="tab-content <?php print $classes;?>">
   <div class="tab-pane active " id="summaryBody<?php print $id; ?>"
     role="tabpanel" aria-hidden="fasle"
