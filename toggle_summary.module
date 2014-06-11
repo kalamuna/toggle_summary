@@ -47,7 +47,7 @@ function toggle_summary_field_formatter_settings_summary($field, $instance, $vie
 
   $summary = '';
 
-  if (strpos($display['type'], '_trimmed') !== FALSE) {
+  if($display['type'] == 'toggle_summary') {
     $summary = t('Trim length') . ': ' . $settings['trim_length'];
   }
 
@@ -64,14 +64,17 @@ function toggle_summary_field_formatter_view($entity_type, $entity, $field, $ins
 
   if($display['type'] == 'toggle_summary') {
     foreach ($items as $delta => $item) {
+      $full = _text_sanitize($instance, $langcode, $item, 'value');
       if (!empty($item['summary'])) {
-        $output = _text_sanitize($instance, $langcode, $item, 'summary');
+        $summary = _text_sanitize($instance, $langcode, $item, 'summary');
       }
       else {
-        $output = _text_sanitize($instance, $langcode, $item, 'value');
-        $output = text_summary($output, $instance['settings']['text_processing'] ? $item['format'] : NULL, $display['settings']['trim_length']);
+        $summary = $full;
+        $summary = text_summary($output, $instance['settings']['text_processing'] ? $item['format'] : NULL, $display['settings']['trim_length']);
       }
-      $element[$delta] = array('#markup' => $output);
+      $summary .= 'Working!';
+      $element[$delta] = array('#markup' => $summary);
     }
   }
+  return $element;
 }
