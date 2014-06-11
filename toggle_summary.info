@@ -1,0 +1,10 @@
+name = toggle_summary
+description = Provides a field formatter to render out both the summary/trimmed and then the full version.
+package = Kalamuna
+version = 7.x-1.x-dev
+core = 7.x
+
+
+stylesheets[all][] = toggle_summary.css
+
+scripts[] = toggle_summary.js
