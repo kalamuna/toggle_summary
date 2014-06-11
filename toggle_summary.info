@@ -4,7 +4,4 @@ package = Kalamuna
 version = 7.x-1.x-dev
 core = 7.x
 
-
-stylesheets[all][] = toggle_summary.css
-
-scripts[] = toggle_summary.js
+scripts[] = toggle-summary.min.js
