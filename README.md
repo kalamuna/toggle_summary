@@ -1,4 +1,4 @@
 toggle_summary
 ==============
 
-Provides a field formatter to render out both the summary/trimmed and then the full version.
+A Drupal 7 module that provides a field formatter to toggle between the summary/trimmed and the full version of a body field.
